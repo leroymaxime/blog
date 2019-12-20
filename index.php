@@ -13,7 +13,7 @@ try {
                 $reqid->execute(array($id));
                 $idexist = $reqid->rowcount();
                 if ($idexist == 0) {
-                echo 'erreur : LE BILLET EXISTE PAS CONNARD !!!';
+                echo 'erreur : LE BILLET EXISTE PAS !!!';
                 } else {
                     post();
                 }
