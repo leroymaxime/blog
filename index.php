@@ -7,7 +7,7 @@ try {
         }
         elseif ($_GET['action'] == 'post') {
             if (isset($_GET['id']) && $_GET['id'] > 0)  {
-                $id = trim(htmlspecialchars($_GET['id']));
+                $id = trim($_GET['id']);
                 $db = dbConnect();
                 $reqid = $db->prepare("SELECT * FROM articles WHERE id = ?");
                 $reqid->execute(array($id));
@@ -21,20 +21,7 @@ try {
                 echo 'Erreur : aucun identifiant de billet envoyé';
             }
         }
-            /*if(empty($idExist) || $idExist == NULL){
-            //post();
-            echo "blablabla";
-            }*/
-        
-        elseif ($_GET['action'] == 'delete') {
-            if (isset($_GET['id']) && $_GET['id'] > 0) {
-                delete();
-                header('Location: index.php');
-            }
-            else {
-                echo 'Erreur : aucun identifiant de billet envoyé';
-            }
-        }
+
         elseif ($_GET['action'] == 'addComment') {
             if (isset($_GET['id']) && $_GET['id'] > 0) {
                 if (!empty($_POST['pseudo']) && !empty($_POST['comment'])) {
@@ -48,6 +35,8 @@ try {
                 echo 'Erreur : aucun identifiant de billet envoyé';
             }
         }
+
+        
     } 
     else {
         listPosts();

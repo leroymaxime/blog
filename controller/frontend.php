@@ -1,41 +1,44 @@
 <?php
 
-require('model/frontend.php');
-
-function listUsers() {
-  $users = getUsers();
-  require('view/frontend/listUsersView.php');
-}
-
-function user() {
-  $user = getUser($_GET['id']);
-  require('view/frontend/userView.php');
-}
+require_once('model/frontend.php');
+require_once('model/PostManager.php');
+require_once('model/CommentManager.php');
+require_once('model/UserManager.php');
 
 function listPosts() {
-  $posts = getPosts();
+  $postManager = new \Projet\Blog\Model\PostManager(); // Création d'un objet
+  $posts = $postManager->getPosts(); // Appel d'une fonction de cet objet
+  
   require('view/frontend/listPostsView.php');
 }
 
 function post() {
-  $post = getPost($_GET['id']);
-  $comments = getComments($_GET['id']);
+  $postManager = new \Projet\Blog\Model\PostManager();
+  $commentManager = new \Projet\Blog\Model\CommentManager();
+
+  $post = $postManager->getPost($_GET['id']);
+  $comments = $commentManager->getComments($_GET['id']);
 
   require('view/frontend/postView.php');
 }
 
 function postExist() {
-  $idExist = idExist($_GET['id']);
+  $postManager = new \Projet\Blog\Model\PostManager();
+
+  $idExist = $postManager->idExist($_GET['id']);
 }
 
-function delete() {
-  $delete = deletePost($_GET['id']);
+function comment() {
+  $commentManager = new \Projet\Blog\Model\CommentManager();
+  $comment = $commentManager->getComment($_GET['id']);
 
+  require('view/frontend/updateCommentView.php');
 }
 
 function addComment($postId, $pseudo, $comment)
 {
-    $affectedLines = postComment($postId, $pseudo, $comment);
+  $commentManager = new \Projet\Blog\Model\CommentManager();
+  $affectedLines = $commentManager->postComment($postId, $pseudo, $comment);
 
     if ($affectedLines === false) {
         throw new Exception('Impossible d\'ajouter le commentaire !');

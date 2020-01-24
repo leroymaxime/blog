@@ -1,5 +1,5 @@
 <?php ob_start(); ?>
-    <p><a href="listUsers.php">Retour à la liste des membres</a></p>
+    <p><a href="admin.php?action=listUsers">Retour à la liste des membres</a></p>
     <h1><?= htmlspecialchars($user['id']); ?></h1>
     <em>Posté le : <?= htmlspecialchars($user['first_name']); ?></em><br />
       <em><?= htmlspecialchars($user['last_name']); ?></em>

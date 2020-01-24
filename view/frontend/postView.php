@@ -1,6 +1,7 @@
 <?php ob_start(); ?>
     <p><a href="index.php">Retour aux articles</a></p>
     <h1><?= htmlspecialchars($post['title']); ?></h1>
+    <em>Slug : <?= htmlspecialchars($post['slug']); ?></em><br />
     <em>Posté le : <?= htmlspecialchars($post['created_at']); ?></em><br />
       <em><?= htmlspecialchars($post['introduction']); ?></em>
       <p><?= htmlspecialchars($post['content']); ?></p>

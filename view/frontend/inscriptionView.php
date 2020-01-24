@@ -1,6 +1,7 @@
 <?php $title = 'Inscription'; ?>
 <?php ob_start(); ?>
-  <div class="row"><h1>Inscription</h1></div>
+
+<div class="row"><h1>Inscription</h1></div>
   <br />
     <?php
       require('model/frontend.php');
@@ -16,17 +17,17 @@
               if (filter_var($email, FILTER_VALIDATE_EMAIL))  {
 
                 // INSERER FONCTION VERIFICATION SI EMAIL EXISTE DEJA DANS BDD
-                $reqmail = $db->prepare("SELECT * FROM membres WHERE email = ?");
+                /*$reqmail = $db->prepare("SELECT * FROM membres WHERE email = ?");
                 $reqmail->execute(array($email));
-                $mailexist = $reqmail->rowcount();
+                $mailexist = $reqmail->rowcount();*/
                 if ($mailexist == 0) {
                   if(strlen($password) >= 8 AND strlen($password) <= 100) {
                     if($password == $confirm_password) {
                       $password_crypted = password_hash($_POST['password'], PASSWORD_DEFAULT);
 
                       // INSERER FONCTION INSCRIPTION
-                      $req = $db->prepare('INSERT INTO membres (email, password, inscription_date) VALUES (?,?, NOW())');
-                      $req->execute(array($email, $password_crypted));
+                      /*$req = $db->prepare('INSERT INTO membres (email, password, inscription_date) VALUES (?,?, NOW())');
+                      $req->execute(array($email, $password_crypted));*/
 
                       echo 'Votre compte à bien été créé';
                     } else {
@@ -49,6 +50,8 @@
           }
         }
       }
+       
+
     ?>
 
   <form method="POST">
@@ -73,6 +76,7 @@
   <p>Vous avez déjà un compte ? <a href="connexion.php">Connectez-vous ! </a></p>
   <button type="submit" name="confirm_inscription" class="btn btn-primary">Connexion</button>
 </form>
-<?php $content = ob_get_clean(); ?>
 
+
+<?php $content = ob_get_clean(); ?>
 <?php require('template.php');

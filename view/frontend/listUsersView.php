@@ -24,7 +24,8 @@
       <td><?= htmlspecialchars($data['last_name']); ?></td>
       <td><?= htmlspecialchars($data['first_name']); ?></td>
       <td><?= htmlspecialchars($data['email']); ?></td>
-      <td><a href="listUsers.php?action=user&amp;id=<?= $data['id'] ?>"> Lire la suite</a></td>
+      <td><a href="admin.php?action=user&amp;id=<?= $data['id'] ?>">Consulter</a><br />
+          <a href="admin.php?action=deleteUser&amp;id=<?= $data['id'] ?>">Supprimer</a></td>
     </tr>
     <?php 
         }
@@ -35,4 +36,4 @@
 
     <?php $content = ob_get_clean(); ?>
 
-<?php require('template.php');
+<?php require('templateAdmin.php');
