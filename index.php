@@ -1,7 +1,9 @@
 <?php
+ob_start();
 require('controller/frontend.php');
-try { 
+try {
     if (isset($_GET['action'])) {
+        // if ($_SESSION)
         if ($_GET['action'] == 'listPosts') {
             listPosts();
         }
@@ -36,7 +38,9 @@ try {
             }
         }
 
-        
+        elseif ($_GET['action'] == 'login') {
+            connect();
+        }
     } 
     else {
         listPosts();
@@ -46,3 +50,5 @@ catch(Exception $e) {
     echo 'Erreur : ' .$e->getMessage();
     
 }
+$content = ob_get_clean();
+require('view/frontend/template.php');

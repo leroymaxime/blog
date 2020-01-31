@@ -1,6 +1,4 @@
-
 <?php $title = 'Blog'; ?>
-<?php ob_start(); ?>
 <div class="row">
   </div>
   <br />
@@ -25,7 +23,3 @@
           $posts->closeCursor();
         ?>
     </div>
-
-    <?php $content = ob_get_clean(); ?>
-
-<?php require('template.php');

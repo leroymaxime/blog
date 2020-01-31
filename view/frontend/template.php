@@ -1,15 +1,4 @@
-<?php
-session_start();
 
-if(isset($_SESSION['id'])) {
-  $db = dbConnect();
-  $req = $db->prepare("SELECT * FROM membres WHERE id = ?");
-  $req->execute(array($_SESSION['id']));
-  $user = $req->fetch();   
-} else {
-  $user = NULL;
-}
-?>
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -37,31 +26,23 @@ if(isset($_SESSION['id'])) {
         <li class="nav-item">
           <a class="nav-link" href="contact.php">Contact</a>
         </li>
-        <?php 
-          if(!isset($_SESSION['email'])) { ?>
             <li class="nav-item">
               <a class="nav-link" href="index.php?action=inscription">Inscription</a>
             </li>
-          <?php }  else {?>
             <li class="nav-item">
-              <a class="nav-link" href="deconnect.php">Deconnect</a>
+              <a class="nav-link" href="index.php?action=login">Connexion</a>
             </li>
-        <?php  } ?>
-            <?php if($user['role'] == 1) {?>
               <li class="nav-item">
               <a class="nav-link" href="admin.php">Admin</a>
-            </li><?php }?>
+            </li>
       </ul>
     </div>
   </nav>
   <main class="container">
-  <?php if(!isset($_SESSION['email'])) 
-{ 
-  echo '<h1>Bienvenu sur le blog !</h1>';
-}else {
-  echo '<h1>Bienvenu sur le blog' . ' ' . $user['email'] . ' ' . $user['role'] . '!</h1>';
-}
-?>
+  <?php if(!isset($_SESSION['email'])) { 
+          echo 'NO';
+        } else {
+          echo '<h1>' . 'Bonjour ' . $login['email'] . '</h1>';} ?>
     <?= $content ?>
   </main>
 </body>

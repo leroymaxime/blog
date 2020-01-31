@@ -1,4 +1,4 @@
-<?php ob_start(); ?>
+
     <p><a href="index.php">Retour aux articles</a></p>
     <h1><?= htmlspecialchars($post['title']); ?></h1>
     <em>Slug : <?= htmlspecialchars($post['slug']); ?></em><br />
@@ -11,7 +11,7 @@
       <?php
         while ($comment = $comments->fetch()) {
           if($comment['approuved'] == 0) {
-
+            echo 'Aucun commentaire';
           } else {
       ?>
       <p><div class="card">
@@ -47,6 +47,3 @@
             </div>
           </div>
         </form>
-       <?php $content = ob_get_clean(); ?>
-
-<?php require('template.php'); ?>

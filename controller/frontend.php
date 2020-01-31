@@ -1,14 +1,13 @@
 <?php
 
-require_once('model/frontend.php');
 require_once('model/PostManager.php');
 require_once('model/CommentManager.php');
 require_once('model/UserManager.php');
+require_once('model/ConnectManager.php');
 
 function listPosts() {
   $postManager = new \Projet\Blog\Model\PostManager(); // Création d'un objet
   $posts = $postManager->getPosts(); // Appel d'une fonction de cet objet
-  
   require('view/frontend/listPostsView.php');
 }
 
@@ -47,3 +46,23 @@ function addComment($postId, $pseudo, $comment)
         header('Location: index.php?action=post&id=' . $postId);
     }
 }
+
+function connect() {
+  $connectManager = new \Projet\Blog\Model\ConnectManager();
+    if (isset($_POST['email']) AND isset($_POST['password'])) {
+      if (!empty($_POST['email']) AND !empty($_POST['password'])) {
+        $login = $connectManager->connect();
+        if (!$login OR !password_verify($_POST['password'], $login['password'])) {
+          echo 'Identifiant ou Mot De Passe incorrect.<br/>';
+        } else {
+            session_start();
+            $_SESSION['id'] = $login['id'];
+            $_SESSION['email'] = $login['email'];
+            $_SESSION['role'] = $login['role'];
+            header('location: index.php');
+        }
+      } else {
+        echo 'Renseignez un Email et un Mot De Passe.<br/>';
+      }
+    } require_once('view/frontend/connexion.php');
+  } 
