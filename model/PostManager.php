@@ -4,10 +4,10 @@ namespace Projet\Blog\Model;
 require_once("model/Manager.php");
 
 class PostManager extends Manager {
+
   public function getPosts() {
     $db = $this->dbConnect();
     $req = $db->query('SELECT * FROM articles ORDER BY created_at DESC');
-  
     return $req;
   }
   
@@ -16,10 +16,13 @@ class PostManager extends Manager {
     $req = $db->prepare('SELECT * FROM articles WHERE id = ?');
     $req->execute([$postId]);
     $post = $req->fetch();
-  
+    $req->closeCursor();
+    
     return $post;
   }
   
+
+
   public function deletePost($postId) {
     $db = $this->dbConnect();
     $delete = $db->prepare('DELETE FROM articles WHERE id = ?');

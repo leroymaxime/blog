@@ -17,14 +17,15 @@ function post() {
 
   $post = $postManager->getPost($_GET['id']);
   $comments = $commentManager->getComments($_GET['id']);
+  $comments->closeCursor();
+
+  if ($post == 0) {
+    echo 'erreur : LE BILLET EXISTE PAS !!!';
+    } else {
+        post();   
+    } 
 
   require('view/frontend/postView.php');
-}
-
-function postExist() {
-  $postManager = new \Projet\Blog\Model\PostManager();
-
-  $idExist = $postManager->idExist($_GET['id']);
 }
 
 function comment() {

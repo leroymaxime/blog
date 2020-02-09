@@ -1,28 +1,31 @@
 <?php
 ob_start();
-require('controller/frontend.php');
+require_once('controller/frontend.php');
+require_once('model/Manager.php');
+
 try {
     if (isset($_GET['action'])) {
-        // if ($_SESSION)
         if ($_GET['action'] == 'listPosts') {
             listPosts();
         }
         elseif ($_GET['action'] == 'post') {
             if (isset($_GET['id']) && $_GET['id'] > 0)  {
                 $id = trim($_GET['id']);
-                $db = dbConnect();
-                $reqid = $db->prepare("SELECT * FROM articles WHERE id = ?");
-                $reqid->execute(array($id));
-                $idexist = $reqid->rowcount();
-                if ($idexist == 0) {
-                echo 'erreur : LE BILLET EXISTE PAS !!!';
-                } else {
-                    post();
+                /*$db = new \PDO('mysql:host=localhost;dbname=portfolio_blog;charset=utf8', 'root', '', [
+      \PDO::ATTR_ERRMODE => \PDO::ERRMODE_EXCEPTION,
+      \PDO::ATTR_DEFAULT_FETCH_MODE => \PDO::FETCH_ASSOC
+      ]);*/
+                Post();
+                
                 }
-            } else {
-                echo 'Erreur : aucun identifiant de billet envoyé';
             }
-        }
+        /* elseif ($_GET['action'] == 'post') {
+            if (isset($_GET['id']) && $_GET['id'] > 0)  {
+                post();  
+            } else {
+                echo 'erreur : LE BILLET EXISTE PAS !!!';
+            }
+        }*/
 
         elseif ($_GET['action'] == 'addComment') {
             if (isset($_GET['id']) && $_GET['id'] > 0) {

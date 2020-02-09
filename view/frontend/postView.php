@@ -5,7 +5,7 @@
     <em>Posté le : <?= htmlspecialchars($post['created_at']); ?></em><br />
       <em><?= htmlspecialchars($post['introduction']); ?></em>
       <p><?= htmlspecialchars($post['content']); ?></p>
-
+      <?php $post->closeCursor(); ?>
       <br />
       <h2>Commentaires</h2>
       <?php
